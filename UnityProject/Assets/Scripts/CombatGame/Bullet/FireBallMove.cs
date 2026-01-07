@@ -9,6 +9,8 @@ public class FireBallMove : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Need To Fix Its Bullet Collide With It
+        //Consider with Tag
         myRigidBody = GetComponent<Rigidbody2D>();
     }
 
