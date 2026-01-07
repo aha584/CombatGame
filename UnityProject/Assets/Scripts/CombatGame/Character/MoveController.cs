@@ -9,10 +9,14 @@ public class MoveController : MonoBehaviour
     private Keyboard currentInput;
     private const float gravity = 9.81f;
 
+    private float angleToJump = 45f;
     [SerializeField] private bool isReachPeak = false;
     //Can Upgrade by using Edge Collider to get Collide event with ground
     [SerializeField] private float previousPos = 0;
     [SerializeField] private bool isOnAir = false;
+
+    private float timer = 0f;
+    private float jumpAttackTime = 0.06f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,9 +29,9 @@ public class MoveController : MonoBehaviour
     void Update()
     {
         if (currentInput == null) return;
-
+        //Walk Physic
         WalkPhysic();
-
+        //Jump Physic
         JumpPhysic();
     }
 
@@ -57,7 +61,7 @@ public class MoveController : MonoBehaviour
                 myRigidBody.linearVelocityX = -movementSpeed;
             }
             //Angle = 45
-            myRigidBody.linearVelocityY = Mathf.Abs(myRigidBody.linearVelocityX) * Mathf.Tan(Mathf.PI / 4);
+            myRigidBody.linearVelocityY = Mathf.Abs(myRigidBody.linearVelocityX) * Mathf.Tan(angleToJump * Mathf.PI / 180);
         }
 
         if (!isOnAir) return;

@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 678627342}
   - component: {fileID: 678627344}
   - component: {fileID: 678627345}
+  - component: {fileID: 678627346}
   m_Layer: 0
   m_Name: DragonWarrior
   m_TagString: Untagged
@@ -321,7 +322,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38a31a8420c3bd42a10ac023d4798e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveController
-  myAnimator: {fileID: 0}
 --- !u!114 &678627345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +334,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc06dd98c40524144a42fd99e83897ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveController
-  movementSpeed: 5
+  movementSpeed: 10
+  isReachPeak: 0
+  previousPos: 0
+  isOnAir: 0
+--- !u!114 &678627346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678627337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2136a9b7d94d2d248983f10daeb2763a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShootingFireBall
+  fireballPrefab: {fileID: 4481767426811548799, guid: 5e592f5e5056e8d4c97755de81cc840d, type: 3}
+  fireBallOffset: {x: 1.2, y: 0.9, z: 0}
 --- !u!1 &1762278813
 GameObject:
   m_ObjectHideFlags: 0
