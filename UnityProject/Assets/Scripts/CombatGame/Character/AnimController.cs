@@ -33,13 +33,7 @@ public class AnimController : MonoBehaviour
 
     private void WalkAnim()
     {
-        if (currentInput.aKey.isPressed)
-        {
-            myAnimator.SetBool("isMoving", true);
-            multiplier = moveController.movementSpeed / baseWalkSpeed;
-            myAnimator.SetFloat("walkSpeed", multiplier);
-        }
-        else if (currentInput.dKey.isPressed)
+        if (currentInput.aKey.isPressed || currentInput.dKey.isPressed)
         {
             myAnimator.SetBool("isMoving", true);
             multiplier = moveController.movementSpeed / baseWalkSpeed;
@@ -59,14 +53,14 @@ public class AnimController : MonoBehaviour
             myAnimator.SetBool("isOnAir", true);
         }
         //Jump Attack Anim
-        JumpAttackAnim();
+        AttackAnim();
         if (transform.position.y < previousPos)
         {
             myAnimator.SetBool("isOnAir", false);
         }
     }
 
-    private void JumpAttackAnim()
+    private void AttackAnim()
     {
         if (currentInput.jKey.wasPressedThisFrame)
         {
