@@ -3,10 +3,13 @@ using UnityEngine.InputSystem;
 
 public class AnimController : MonoBehaviour
 {
-
-
     private Animator myAnimator;
     private Keyboard currentInput;
+
+    private const float gapToGround = 0.01f;
+
+    private float previousPos;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,21 +22,43 @@ public class AnimController : MonoBehaviour
     void Update()
     {
         if (currentInput == null) return;
-        //move by A D
+
+        //Walk Anim
+        WalkAnim();
+        //Jump Anim
+        if (currentInput.spaceKey.wasPressedThisFrame)
+        {
+            previousPos = transform.position.y;
+
+            myAnimator.SetTrigger("isJump");
+            myAnimator.SetBool("isOnAir", true);
+        }
+        if (Mathf.Abs(transform.position.y - previousPos) <= gapToGround)
+        {
+            myAnimator.SetBool("isOnAir", false);
+        }
+    }
+
+    bool CheckFaceSide()
+    {
+        if (transform.localScale.x > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void WalkAnim()
+    {
         if (currentInput.aKey.isPressed)
         {
-            if (transform.localScale.x > 0f)
-            {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-            }
             myAnimator.SetBool("isMoving", true);
         }
         else if (currentInput.dKey.isPressed)
         {
-            if (transform.localScale.x < 0f)
-            {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-            }
             myAnimator.SetBool("isMoving", true);
         }
         else
