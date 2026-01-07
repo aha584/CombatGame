@@ -8,10 +8,10 @@ public class MoveController : MonoBehaviour
     private Rigidbody2D myRigidBody;
     private Keyboard currentInput;
     private const float gravity = 9.81f;
-    [SerializeField] private int tempInt = 0;
 
     [SerializeField] private bool isReachPeak = false;
-    [SerializeField] private float previousPos;
+    //Can Upgrade by using Edge Collider to get Collide event with ground
+    [SerializeField] private float previousPos = 0;
     [SerializeField] private bool isOnAir = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -47,8 +47,6 @@ public class MoveController : MonoBehaviour
     {
         if (currentInput.spaceKey.wasPressedThisFrame && !isOnAir)
         {
-            //Can Upgrade by using Edge Collider to get Collide event with ground
-            previousPos = transform.position.y;
             isOnAir = true;
             if (CheckFaceSide())
             {
@@ -63,26 +61,25 @@ public class MoveController : MonoBehaviour
         }
 
         if (!isOnAir) return;
-        if (myRigidBody.linearVelocityY > 0 && tempInt == 0 && isReachPeak)
+        if (myRigidBody.linearVelocityY > 0)
+        {
+            myRigidBody.linearVelocityY -= gravity * Time.deltaTime;
+        }
+        else if (isReachPeak)
         {
             myRigidBody.linearVelocityY -= gravity * Time.deltaTime;
         }
         else
         {
-            tempInt = 1;
             isReachPeak = true;
         }
 
-        if(isReachPeak)
+        if (transform.position.y <= previousPos && isReachPeak)
         {
-            myRigidBody.linearVelocityY += gravity * Time.deltaTime;
-        }
-
-        if (transform.position.y <= previousPos && !isReachPeak)
-        {
-            tempInt--;
             isReachPeak = false;
             isOnAir = false;
+            myRigidBody.linearVelocityY = 0f;
+            transform.position = new Vector3(transform.position.x, previousPos,transform.position.z);
         }
     }
     private void WalkPhysic()

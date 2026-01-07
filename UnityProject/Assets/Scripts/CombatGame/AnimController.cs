@@ -39,18 +39,6 @@ public class AnimController : MonoBehaviour
         }
     }
 
-    bool CheckFaceSide()
-    {
-        if (transform.localScale.x > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     private void WalkAnim()
     {
         if (currentInput.aKey.isPressed)
