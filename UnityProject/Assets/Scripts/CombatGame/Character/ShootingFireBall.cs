@@ -10,7 +10,7 @@ public class ShootingFireBall : MonoBehaviour
 
     private Vector3 bornPos;
     private float timer = 0f;
-    private float attackDelay = 0.06f;
+    private float attackDelay = 0.2f;
 
     private void Start()
     {
@@ -29,7 +29,6 @@ public class ShootingFireBall : MonoBehaviour
         {
             bornPos = new Vector3(transform.position.x - fireBallOffset.x, transform.position.y - fireBallOffset.y, transform.position.z);
         }
-
         timer += Time.deltaTime;
         if (!currentInput.jKey.wasPressedThisFrame) return;
         if(timer > attackDelay)

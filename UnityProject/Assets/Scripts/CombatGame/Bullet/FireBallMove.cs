@@ -4,7 +4,10 @@ public class FireBallMove : MonoBehaviour
 {
     public float movementSpeed;
 
+    private SpriteRenderer mySprite;
     private Rigidbody2D myRigidBody;
+    private float timer = 0f;
+    private float flyDelayTime = 0.2f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -12,11 +15,19 @@ public class FireBallMove : MonoBehaviour
         //Need To Fix Its Bullet Collide With It
         //Consider with Tag
         myRigidBody = GetComponent<Rigidbody2D>();
+        mySprite = GetComponent<SpriteRenderer>();
+        mySprite.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
+        if (timer < flyDelayTime)
+        {
+            return;
+        }
+        mySprite.enabled = true;
         if(transform.localScale.x > 0)
         {
             myRigidBody.linearVelocityX = movementSpeed;
@@ -25,6 +36,6 @@ public class FireBallMove : MonoBehaviour
         {
             myRigidBody.linearVelocityX = -movementSpeed;
         }
-        Destroy(gameObject, 10f);
+        Destroy(gameObject, movementSpeed / 2);
     }
 }
