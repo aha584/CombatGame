@@ -14,9 +14,7 @@ public class MoveController : MonoBehaviour
     //Can Upgrade by using Edge Collider to get Collide event with ground
     [SerializeField] private float previousPos = 0;
     [SerializeField] private bool isOnAir = false;
-
-    private float timer = 0f;
-    private float jumpAttackTime = 0.06f;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
