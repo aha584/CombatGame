@@ -11,9 +11,14 @@ public class ShootingFireBall : MonoBehaviour
     private Vector3 bornPos;
     private float timer = 0f;
     private float attackDelay = 0.2f;
+    private MoveController moveControl;
+    private float crouchOffset = 0.4f;
+    private int crouchMulti = 0;
+    private float sideMulti = 1f;
 
     private void Start()
     {
+        moveControl = GetComponent<MoveController>();
         currentInput = Keyboard.current;
     }
 
@@ -21,17 +26,22 @@ public class ShootingFireBall : MonoBehaviour
     void Update()
     {
         if (currentInput == null) return;
-        if (CheckFaceSide())
+        if (moveControl.isCrouch)
         {
-            bornPos = new Vector3(transform.position.x + fireBallOffset.x, transform.position.y - fireBallOffset.y, transform.position.z);
+            crouchMulti = 1;
+            attackDelay = 0.75f;
         }
         else
         {
-            bornPos = new Vector3(transform.position.x - fireBallOffset.x, transform.position.y - fireBallOffset.y, transform.position.z);
+            crouchMulti = 0;
         }
+        CheckFaceSide();
+        bornPos = new Vector3(transform.position.x + sideMulti * fireBallOffset.x,
+                              transform.position.y - fireBallOffset.y - crouchMulti * crouchOffset,
+                              transform.position.z);
         timer += Time.deltaTime;
         if (!currentInput.jKey.wasPressedThisFrame) return;
-        if(timer > attackDelay)
+        if (timer > attackDelay)
         {
             GameObject fireBallClone = Instantiate(fireballPrefab, bornPos, Quaternion.identity);
             fireBallClone.transform.localScale = transform.localScale;
@@ -39,15 +49,15 @@ public class ShootingFireBall : MonoBehaviour
         }
     }
 
-    bool CheckFaceSide()
+    private void CheckFaceSide()
     {
         if (transform.localScale.x > 0)
         {
-            return true;
+            sideMulti = 1f;
         }
         else
         {
-            return false;
+            sideMulti = -1f;
         }
     }
 }
