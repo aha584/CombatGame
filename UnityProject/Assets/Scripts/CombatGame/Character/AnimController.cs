@@ -1,10 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class AnimController : MonoBehaviour
 {
-    private Animator myAnimator;
-    private Keyboard currentInput;
+    public Animator myAnimator;
+    public InputController myInput;
+
     private MoveController moveController;
 
     private float previousPos = 0f;
@@ -16,33 +19,14 @@ public class AnimController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentInput = Keyboard.current;
         myAnimator = GetComponent<Animator>();
         moveController = GetComponent<MoveController>();
+        myInput = GetComponent<InputController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected void WalkAnim()
     {
-        if (currentInput == null) return;
-
-        //Walk Anim
-        WalkAnim();
-        //Attack Anim
-        AttackAnim();
-        //Jump Anim
-        JumpAnim();
-        //Crounch Anim
-        CrouchAnim();
-        //Strike Anim
-        StrikeAnim();
-        //Fly Kick Anim
-        FlyKichAnim();
-    }
-
-    private void WalkAnim()
-    {
-        if (currentInput.aKey.isPressed || currentInput.dKey.isPressed)
+        if (myInput.walkLeftControl.IsPressed() || myInput.walkRightControl.IsPressed())
         {
             myAnimator.SetBool("isMoving", true);
             multiplier = moveController.movementSpeed / baseWalkSpeed;
@@ -54,12 +38,16 @@ public class AnimController : MonoBehaviour
         }
     }
 
-    private void JumpAnim()
+    protected void JumpAnim()
     {
-        if (currentInput.spaceKey.wasPressedThisFrame)
+        if (myInput.jumpControl is ButtonControl jumpButton)
         {
-            myAnimator.SetTrigger("isJump");
-            myAnimator.SetBool("isOnAir", true);
+            if (jumpButton.wasPressedThisFrame)
+            {
+
+                myAnimator.SetTrigger("isJump");
+                myAnimator.SetBool("isOnAir", true);
+            }
         }
         if (transform.position.y < previousPos)
         {
@@ -67,51 +55,53 @@ public class AnimController : MonoBehaviour
         }
     }
 
-    private void CrouchAnim()
+    protected void CrouchAnim()
     {
-        if (currentInput.cKey.wasPressedThisFrame)
+        if (myInput.crouchControl is ButtonControl crouchButton)
         {
-            myAnimator.SetBool("isCrouch", !isCrouch);
-            isCrouch = !isCrouch;
+            if (crouchButton.wasPressedThisFrame)
+            {
+                myAnimator.SetBool("isCrouch", !isCrouch);
+                isCrouch = !isCrouch;
+            }
         }
     }
 
-    private void AttackAnim()
+    protected void AttackAnim()
     {
-        if (currentInput.jKey.wasPressedThisFrame)
+        if (myInput.attackControl is ButtonControl attackButton)
         {
-            myAnimator.SetTrigger("isAttack");
+            if (attackButton.wasPressedThisFrame)
+            {
+                myAnimator.SetTrigger("isAttack");
+            }
         }
+            
     }
-    private void StrikeAnim()
+    protected void StrikeAnim()
     {
         //Can update to with key combo
-        if (currentInput.iKey.wasPressedThisFrame)
+        if (myInput.strikeControl is ButtonControl strikeButton)
         {
-            myAnimator.SetTrigger("isStrike");
+            if (strikeButton.wasPressedThisFrame)
+            {
+                myAnimator.SetTrigger("isStrike");
+            }
         }
     }
-    private void FlyKichAnim()
-    {
-        //Same with strike
-        if (currentInput.oKey.wasPressedThisFrame)
-        {
-            myAnimator.SetTrigger("isFlyKick");
-        }
-    }
-    private void HurtAnim()//Call when take damage
+    protected void HurtAnim()//Call when take damage
     {
         myAnimator.SetTrigger("isHurt");
     }
-    private void DieAnim()//Call when health = 0
+    protected void DieAnim()//Call when health = 0
     {
         myAnimator.SetBool("isDie", true);
     }
-    private void WinAnim()//Call when health = 0
+    protected void WinAnim()//Call when health = 0
     {
         myAnimator.SetTrigger("isWin");
     }
-    private void DizzyAnim() // Call when dizzy
+    protected void DizzyAnim() // Call when dizzy
     {
         myAnimator.SetBool("isDizzy", !isDizzy);
     }

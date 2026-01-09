@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class FireBallAnim : MonoBehaviour
+public class ProjectileAnim : MonoBehaviour
 {
     private Animator myAnimator;
-    private FireBallMove moveScript;
+    private ProjectileMove moveScript;
 
     private float multiplier = 1f;
     private float baseSpeed = 6.25f;
@@ -12,7 +12,7 @@ public class FireBallAnim : MonoBehaviour
     void Start()
     {
         myAnimator = GetComponent<Animator>();
-        moveScript = GetComponent<FireBallMove>();
+        moveScript = GetComponent<ProjectileMove>();
     }
 
     // Update is called once per frame

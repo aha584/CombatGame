@@ -132,12 +132,13 @@ GameObject:
   - component: {fileID: 678627340}
   - component: {fileID: 678627341}
   - component: {fileID: 678627342}
-  - component: {fileID: 678627344}
-  - component: {fileID: 678627345}
   - component: {fileID: 678627346}
+  - component: {fileID: 678627347}
+  - component: {fileID: 678627348}
+  - component: {fileID: 678627349}
   m_Layer: 7
   m_Name: DragonWarrior
-  m_TagString: Untagged
+  m_TagString: Dragon Warrior
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -310,34 +311,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6914078, y: 1.1158936}
   m_EdgeRadius: 0
---- !u!114 &678627344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678627337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b38a31a8420c3bd42a10ac023d4798e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoveController
---- !u!114 &678627345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678627337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc06dd98c40524144a42fd99e83897ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoveController
-  movementSpeed: 5
-  baseStrikeSpd: 5.5
-  baseFlyKickSpd: 6.5
-  isCrouch: 0
 --- !u!114 &678627346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,8 +323,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2136a9b7d94d2d248983f10daeb2763a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShootingFireBall
-  fireballPrefab: {fileID: 4481767426811548799, guid: 5e592f5e5056e8d4c97755de81cc840d, type: 3}
-  fireBallOffset: {x: 1.2, y: 0.9, z: 0}
+  projectilePrefab: {fileID: 4481767426811548799, guid: 5e592f5e5056e8d4c97755de81cc840d, type: 3}
+--- !u!114 &678627347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678627337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1378051a14f844446aa4ad06333bfbee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputController
+  walkRightKey: 100
+  walkLeftKey: 97
+  jumpKey: 32
+  attackKey: 106
+  strikeKey: 105
+  flyKickKey: 111
+  crouchKey: 99
+  blockKey: 0
+  castKey: 0
+  dashKey: 0
+--- !u!114 &678627348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678627337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402200fcc2dc4064a9dca9edbde3dcd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonMove
+  movementSpeed: 5
+  baseStrikeSpd: 5.5
+  isCrouch: 0
+  sideMulti: 1
+  isOnAir: 0
+  myInput: {fileID: 0}
+  baseKnockback: 1
+  isHurt: 0
+  baseFlyKickSpd: 6.5
+--- !u!114 &678627349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678627337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e647992e52754e459e3d01ea03cc948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonAnim
+  myAnimator: {fileID: 0}
+  myInput: {fileID: 0}
 --- !u!1 &1762278813
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,11 +520,15 @@ GameObject:
   - component: {fileID: 1831868708}
   - component: {fileID: 1831868707}
   - component: {fileID: 1831868709}
-  - component: {fileID: 1831868710}
   - component: {fileID: 1831868711}
+  - component: {fileID: 1831868712}
+  - component: {fileID: 1831868713}
+  - component: {fileID: 1831868714}
+  - component: {fileID: 1831868715}
+  - component: {fileID: 1831868716}
   m_Layer: 0
   m_Name: Knight
-  m_TagString: Untagged
+  m_TagString: Knight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -619,7 +652,99 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.66780305, y: 1.1843216}
   m_EdgeRadius: 0
---- !u!50 &1831868710
+--- !u!95 &1831868711
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831868706}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 246918eaf0f1016419979453c60ba1ec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1831868712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831868706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1378051a14f844446aa4ad06333bfbee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputController
+  walkRightKey: 275
+  walkLeftKey: 276
+  jumpKey: 256
+  attackKey: 260
+  strikeKey: 264
+  flyKickKey: 0
+  crouchKey: 274
+  blockKey: 257
+  castKey: 265
+  dashKey: 263
+--- !u!114 &1831868713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831868706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86de227b6725e5b44834f88d7448a23e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnightMove
+  movementSpeed: 5
+  baseStrikeSpd: 4.5
+  isCrouch: 0
+  sideMulti: 1
+  isOnAir: 0
+  myInput: {fileID: 0}
+  baseKnockback: 1
+  isHurt: 0
+  baseDashSpd: 0
+--- !u!114 &1831868714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831868706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af9c007d0a493343988a60c240be20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnightAnim
+  myAnimator: {fileID: 0}
+  myInput: {fileID: 0}
+--- !u!114 &1831868715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831868706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2136a9b7d94d2d248983f10daeb2763a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShootingProjectile
+  projectilePrefab: {fileID: 3412435488372225824, guid: c8f234a4a85a12b4ab0214fc868ef07f, type: 3}
+--- !u!50 &1831868716
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -646,28 +771,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!95 &1831868711
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1831868706}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 246918eaf0f1016419979453c60ba1ec, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

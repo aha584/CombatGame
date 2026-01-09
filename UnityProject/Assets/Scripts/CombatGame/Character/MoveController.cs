@@ -2,26 +2,27 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class MoveController : MonoBehaviour
 {
     public float movementSpeed;
     public float baseStrikeSpd;
-    public float baseFlyKickSpd;
     public bool isCrouch = false;
+    public float sideMulti = 1f;
+    public bool isOnAir = false;
+    public InputController myInput;
+    public float baseKnockback = 1f;
+    public bool isHurt = false;
 
     private Rigidbody2D myRigidBody;
-    private Keyboard currentInput;
     private const float gravity = 9.81f;
 
     private float angleToJump = 45f;
-    private float sideMulti = 1f;
     private bool isReachPeak = false;
     //Can Upgrade by using Edge Collider to get Collide event with ground
     private float previousPos = 0;
-    private bool isOnAir = false;
     private bool isStrike = false;
-    private bool isFlyKick = false;
 
     //Can update input to KeyControls
     
@@ -30,28 +31,10 @@ public class MoveController : MonoBehaviour
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
-        currentInput = Keyboard.current;
+        myInput = GetComponent<InputController>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (currentInput == null) return;
-        //Check Face Side
-        CheckFaceSide();
-        //Walk Physic
-        WalkPhysic();
-        //Jump Physic
-        JumpPhysic();
-        //Strike Physic
-        StrikePhysic();
-        //Fly Kick Physic
-        FlyKickPhysic();
-        //Crouch Physic
-        CrouchPhysic();
-    }
-
-    private void CheckFaceSide()
+    protected void CheckFaceSide()
     {
         if (transform.localScale.x > 0)
         {
@@ -62,17 +45,17 @@ public class MoveController : MonoBehaviour
             sideMulti = -1f;
         }
     }
-    private void WalkPhysic()
+    protected void WalkPhysic()
     {
-        if (isStrike || isFlyKick || isOnAir || isCrouch) return;
-        if (currentInput.aKey.isPressed)
+        if (isStrike || isOnAir || isCrouch) return;
+        if (myInput.walkLeftControl.IsPressed())
         {
             if (sideMulti > 0)
             {
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
         }
-        else if (currentInput.dKey.isPressed)
+        else if (myInput.walkRightControl.IsPressed())
         {
             if(sideMulti < 0)
             {
@@ -86,15 +69,18 @@ public class MoveController : MonoBehaviour
         }
         myRigidBody.linearVelocityX = sideMulti * movementSpeed;
     }
-    private void JumpPhysic()
+    protected void JumpPhysic()
     {
-        if (isStrike || isFlyKick || isCrouch) return;
-        if (currentInput.spaceKey.wasPressedThisFrame && !isOnAir)
+        if (isStrike || isCrouch) return;
+        if (myInput.jumpControl is ButtonControl jumpButton)
         {
-            isOnAir = true;
-            myRigidBody.linearVelocityX = sideMulti * movementSpeed;
-            //Angle = 45
-            myRigidBody.linearVelocityY = Mathf.Abs(myRigidBody.linearVelocityX) * Mathf.Tan(angleToJump * Mathf.PI / 180);
+            if (jumpButton.wasPressedThisFrame && !isOnAir)
+            {
+                isOnAir = true;
+                myRigidBody.linearVelocityX = sideMulti * movementSpeed;
+                //Angle = 45
+                myRigidBody.linearVelocityY = Mathf.Abs(myRigidBody.linearVelocityX) * Mathf.Tan(angleToJump * Mathf.PI / 180);
+            }
         }
 
         if (!isOnAir) return;
@@ -113,31 +99,34 @@ public class MoveController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, previousPos,transform.position.z);
         }
     }
-    private void StrikePhysic()
+    protected void StrikePhysic()
     {
         //Impulse Mode
         //3m ~ 5m / 0.5 ~ 1s
-        if (currentInput.iKey.wasPressedThisFrame && !isStrike)
+        if (myInput.strikeControl is ButtonControl strikeButton)
         {
-            isStrike = true;
-            transform.DOMoveX(transform.position.x + sideMulti * baseStrikeSpd, 0.5f).SetDelay(0.3f).OnComplete(() => isStrike = false);
+            if (strikeButton.wasPressedThisFrame && !isOnAir)
+            {
+                isStrike = true;
+                transform.DOMoveX(transform.position.x + sideMulti * baseStrikeSpd, 0.5f).SetDelay(0.3f).OnComplete(() => isStrike = false);
+            }
         }
     }
-    private void FlyKickPhysic()
+    protected void CrouchPhysic()
     {
-        //Impulse Mode
-        //3m ~ 5m / 1s
-        if (currentInput.oKey.wasPressedThisFrame && !isFlyKick)
+        if (myInput.crouchControl is ButtonControl crouchButton)
         {
-            isFlyKick = true;
-            transform.DOMoveX(transform.position.x + sideMulti * baseFlyKickSpd, 0.5f).SetDelay(0.5f).OnComplete(() => isFlyKick = false);
+            if (crouchButton.wasPressedThisFrame && !isOnAir)
+            {
+                isCrouch = !isCrouch;
+            }
         }
     }
-    private void CrouchPhysic()
+    protected void HurtPhysic()
     {
-        if (currentInput.cKey.wasPressedThisFrame)
+        if (isHurt)
         {
-            isCrouch = !isCrouch;
+            transform.DOMoveX(transform.position.x - sideMulti * baseKnockback, 0.1f).SetDelay(0.5f);
         }
     }
 }

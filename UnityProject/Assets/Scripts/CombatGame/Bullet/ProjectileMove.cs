@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class FireBallMove : MonoBehaviour
+public class ProjectileMove : MonoBehaviour
 {
     public float movementSpeed;
 
     private SpriteRenderer mySprite;
     private Rigidbody2D myRigidBody;
     private float timer = 0f;
-    private float flyDelayTime = 0.2f;
+    private float flyDelayTime = 0.275f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

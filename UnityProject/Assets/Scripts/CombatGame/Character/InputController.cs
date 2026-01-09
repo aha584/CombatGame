@@ -7,37 +7,45 @@ using UnityEngine.InputSystem.Controls;
 public class InputController : MonoBehaviour
 {
     //Control
-    public InputControl walkControl;
+    public InputControl walkRightControl;
+    public InputControl walkLeftControl;
+    public InputControl jumpControl;
+    public InputControl attackControl;
+    public InputControl strikeControl;
+    public InputControl flyKickControl;
+    public InputControl crouchControl;
+    public InputControl blockControl;
+    public InputControl castControl;
+    public InputControl dashControl;
 
-    //string Bind
-    public KeyCode walkKeyName;
-    public KeyCode jumpKeyName;
-    public KeyCode attackKeyName;
-    public KeyCode strikeKeyName;
-    public KeyCode flyKickKeyName;
-    public KeyCode crouchKeyName;
-    public KeyCode blockKeyName;
+    public ButtonControl tempButton;
 
-
+    //KeyCode Bind
+    public KeyCode walkRightKey;
+    public KeyCode walkLeftKey;
+    public KeyCode jumpKey;
+    public KeyCode attackKey;
+    public KeyCode strikeKey;
+    public KeyCode flyKickKey;
+    public KeyCode crouchKey;
+    public KeyCode blockKey;
+    public KeyCode castKey;
+    public KeyCode dashKey;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         //Debug.Log(CheckString(walkKeyName.ToString()));
-        walkControl = InputSystem.FindControl("<Keyboard>/" + CheckString(walkKeyName.ToString()));
-        if(walkControl.IsPressed())
-        {
-            Debug.Log("Is not null");
-        }
-        if(walkControl is ButtonControl button)
-        {
-            Debug.Log("press this frame");
-        }
+        walkRightControl = InputSystem.FindControl("<Keyboard>/" + CheckString(walkRightKey.ToString()));
+        walkLeftControl = InputSystem.FindControl("<Keyboard>/" + CheckString(walkLeftKey.ToString()));
+        jumpControl = InputSystem.FindControl("<Keyboard>/" + CheckString(jumpKey.ToString()));
+        attackControl = InputSystem.FindControl("<Keyboard>/" + CheckString(attackKey.ToString()));
+        strikeControl = InputSystem.FindControl("<Keyboard>/" + CheckString(strikeKey.ToString()));
+        flyKickControl = InputSystem.FindControl("<Keyboard>/" + CheckString(flyKickKey.ToString()));
+        crouchControl = InputSystem.FindControl("<Keyboard>/" + CheckString(crouchKey.ToString()));
+        blockControl = InputSystem.FindControl("<Keyboard>/" + CheckString(blockKey.ToString()));
+        castControl = InputSystem.FindControl("<Keyboard>/" + CheckString(castKey.ToString()));
+        dashControl = InputSystem.FindControl("<Keyboard>/"+CheckString(dashKey.ToString()));
     }
 
     private string CheckString(string keyName)
