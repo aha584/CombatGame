@@ -49,7 +49,7 @@ public class AnimController : MonoBehaviour
                 myAnimator.SetBool("isOnAir", true);
             }
         }
-        if (transform.position.y < previousPos)
+        if (!moveController.isOnAir)
         {
             myAnimator.SetBool("isOnAir", false);
         }

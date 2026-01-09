@@ -14,12 +14,12 @@ public class MoveController : MonoBehaviour
     public InputController myInput;
     public float baseKnockback = 1f;
     public bool isHurt = false;
+    public bool isReachPeak = false;
 
     private Rigidbody2D myRigidBody;
     private const float gravity = 9.81f;
 
     private float angleToJump = 45f;
-    private bool isReachPeak = false;
     //Can Upgrade by using Edge Collider to get Collide event with ground
     private float previousPos = 0;
     private bool isStrike = false;
