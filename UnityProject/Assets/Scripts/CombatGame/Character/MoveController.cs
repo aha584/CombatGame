@@ -16,10 +16,10 @@ public class MoveController : MonoBehaviour
 
     private float angleToJump = 45f;
     private float sideMulti = 1f;
-    [SerializeField] private bool isReachPeak = false;
+    private bool isReachPeak = false;
     //Can Upgrade by using Edge Collider to get Collide event with ground
-    [SerializeField] private float previousPos = 0;
-    [SerializeField] private bool isOnAir = false;
+    private float previousPos = 0;
+    private bool isOnAir = false;
     private bool isStrike = false;
     private bool isFlyKick = false;
 
