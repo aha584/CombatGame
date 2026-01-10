@@ -18,8 +18,6 @@ public class InputController : MonoBehaviour
     public InputControl castControl;
     public InputControl dashControl;
 
-    public ButtonControl tempButton;
-
     //KeyCode Bind
     public KeyCode walkRightKey;
     public KeyCode walkLeftKey;
