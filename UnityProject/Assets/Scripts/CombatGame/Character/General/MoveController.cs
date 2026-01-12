@@ -134,4 +134,9 @@ public class MoveController : MonoBehaviour
         }*/
         transform.DOMoveX(transform.position.x - sideMulti * baseKnockback, 0.1f).SetDelay(0.5f);
     }
+
+    /*private void OnTriggerStay(Collider other)
+    {
+        
+    }*/
 }
