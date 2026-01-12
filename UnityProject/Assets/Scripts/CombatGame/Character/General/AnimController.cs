@@ -89,19 +89,19 @@ public class AnimController : MonoBehaviour
             }
         }
     }
-    protected void HurtAnim()//Call when take damage
+    public void HurtAnim()//Call when take damage
     {
         myAnimator.SetTrigger("isHurt");
     }
-    protected void DieAnim()//Call when health = 0
+    public void DieAnim()//Call when health = 0
     {
         myAnimator.SetBool("isDie", true);
     }
-    protected void WinAnim()//Call when health = 0
+    public void WinAnim()//Call when health = 0
     {
         myAnimator.SetTrigger("isWin");
     }
-    protected void DizzyAnim() // Call when dizzy
+    public void DizzyAnim() // Call when dizzy
     {
         myAnimator.SetBool("isDizzy", !isDizzy);
     }

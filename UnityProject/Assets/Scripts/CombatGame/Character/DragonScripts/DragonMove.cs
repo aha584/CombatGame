@@ -7,7 +7,7 @@ public class DragonMove : MoveController
 {
     public float baseFlyKickSpd;
 
-    private bool isFlyKick = false;
+    public bool isFlyKick = false;
 
     // Update is called once per frame
     void Update()
@@ -35,6 +35,8 @@ public class DragonMove : MoveController
             {
                 isFlyKick = true;
                 transform.DOMoveX(transform.position.x + sideMulti * baseFlyKickSpd, 0.5f).SetDelay(0.5f).OnComplete(() => isFlyKick = false);
+                Instantiate(dashWindPrefab, transform.position, Quaternion.identity);
+                Destroy(dashWindPrefab, 2f);
             }
         }
     }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5108477165844046210}
   - component: {fileID: -4050765540395364837}
   - component: {fileID: -4378762489157225274}
+  - component: {fileID: -4357083593328260225}
   m_Layer: 0
   m_Name: iblast_01
   m_TagString: Knight
@@ -215,3 +216,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.69031024, y: 0.34507757}
   m_EdgeRadius: 0
+--- !u!114 &-4357083593328260225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3412435488372225824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef7e26cf8386394780b1c992b0accad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileDamage
+  projectileDamage: 3

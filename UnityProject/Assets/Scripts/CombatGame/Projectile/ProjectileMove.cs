@@ -36,6 +36,5 @@ public class ProjectileMove : MonoBehaviour
         {
             myRigidBody.linearVelocityX = -movementSpeed;
         }
-        Destroy(gameObject, movementSpeed / 2);
     }
 }

@@ -36,6 +36,8 @@ public class KnightMove : MoveController
             {
                 isDash = true;
                 transform.DOMoveX(transform.position.x + sideMulti * baseDashSpd, 0.5f).SetDelay(0.5f).OnComplete(() => isDash = false);
+                Instantiate(dashWindPrefab, transform.position, Quaternion.identity);
+                Destroy(dashWindPrefab, 2f);
             }
         }
     }

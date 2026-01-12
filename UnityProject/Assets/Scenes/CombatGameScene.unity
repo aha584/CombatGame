@@ -136,6 +136,9 @@ GameObject:
   - component: {fileID: 678627347}
   - component: {fileID: 678627348}
   - component: {fileID: 678627349}
+  - component: {fileID: 678627350}
+  - component: {fileID: 678627351}
+  - component: {fileID: 678627352}
   m_Layer: 7
   m_Name: DragonWarrior
   m_TagString: Dragon Warrior
@@ -364,11 +367,13 @@ MonoBehaviour:
   isCrouch: 0
   sideMulti: 1
   isOnAir: 0
-  myInput: {fileID: 0}
   baseKnockback: 1
-  isHurt: 0
   isReachPeak: 0
+  isStrike: 0
+  myInput: {fileID: 0}
+  dashWindPrefab: {fileID: 2098484893905581236, guid: b120a01105a823440bcb1a7884bdb1cf, type: 3}
   baseFlyKickSpd: 6.5
+  isFlyKick: 0
 --- !u!114 &678627349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,6 +388,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragonAnim
   myAnimator: {fileID: 0}
   myInput: {fileID: 0}
+--- !u!114 &678627350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678627337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2deefc95f5cf3e948abbc22c28f6f255, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonHealth
+  maxHealth: 20
+  currentHealth: 0
+  myAnimControl: {fileID: 0}
+  myMoveControl: {fileID: 0}
+  explosionPrefab: {fileID: 4824854068728509638, guid: 2ea703d796a89aa498d27f038d1d3bf8, type: 3}
+--- !u!114 &678627351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678627337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045bc09cf8457b14ba09d4d787f6d4c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollideWithOpponent
+  collideDamage: 0
+--- !u!114 &678627352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678627337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aeab7d27e9c81c428bd9b3e24dc6f1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonDamageInfo
+  collideWithOther: 5
+  strikeDamage: 6
+  basicAttackDamage: 3
+  allScriptCWO:
+  - {fileID: 678627351}
+  - {fileID: 725519347}
+  dragonMove: {fileID: 0}
 --- !u!1 &725519343
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,9 +447,11 @@ GameObject:
   m_Component:
   - component: {fileID: 725519344}
   - component: {fileID: 725519345}
+  - component: {fileID: 725519346}
+  - component: {fileID: 725519347}
   m_Layer: 7
   m_Name: hitBox
-  m_TagString: Untagged
+  m_TagString: Knight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -409,14 +465,14 @@ Transform:
   m_GameObject: {fileID: 725519343}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.21, y: -0.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 678627339}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &725519345
-PolygonCollider2D:
+--- !u!61 &725519345
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -445,11 +501,11 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.032027125, y: -0.0040034354}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -459,14 +515,48 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0, y: 1}
-      - {x: -0.95105654, y: 0.30901697}
-      - {x: -0.5877852, y: -0.80901706}
-      - {x: 0.58778536, y: -0.80901694}
-      - {x: 0.9510565, y: 0.30901712}
-  m_UseDelaunayMesh: 0
+  m_Size: {x: 0.7277682, y: 0.6717219}
+  m_EdgeRadius: 0
+--- !u!50 &725519346
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725519343}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &725519347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725519343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045bc09cf8457b14ba09d4d787f6d4c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollideWithOpponent
+  collideDamage: 0
 --- !u!1 &987111362
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,9 +568,10 @@ GameObject:
   - component: {fileID: 987111363}
   - component: {fileID: 987111365}
   - component: {fileID: 987111364}
-  m_Layer: 0
+  - component: {fileID: 987111366}
+  m_Layer: 8
   m_Name: strikeHitbox
-  m_TagString: Untagged
+  m_TagString: Knight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -560,7 +651,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987111362}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -579,6 +670,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &987111366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987111362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045bc09cf8457b14ba09d4d787f6d4c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollideWithOpponent
+  collideDamage: 0
 --- !u!1 &1205820739
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,9 +694,10 @@ GameObject:
   - component: {fileID: 1205820740}
   - component: {fileID: 1205820742}
   - component: {fileID: 1205820741}
-  m_Layer: 0
+  - component: {fileID: 1205820743}
+  m_Layer: 8
   m_Name: jumpAttackHitbox
-  m_TagString: Untagged
+  m_TagString: Knight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -672,7 +777,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1205820739}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -691,6 +796,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1205820743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205820739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045bc09cf8457b14ba09d4d787f6d4c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollideWithOpponent
+  collideDamage: 0
 --- !u!1 &1450702118
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,9 +820,10 @@ GameObject:
   - component: {fileID: 1450702119}
   - component: {fileID: 1450702121}
   - component: {fileID: 1450702120}
-  m_Layer: 0
+  - component: {fileID: 1450702122}
+  m_Layer: 8
   m_Name: blockHitbox
-  m_TagString: Untagged
+  m_TagString: Knight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -732,7 +851,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450702118}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -803,6 +922,19 @@ PolygonCollider2D:
       - {x: 1.0167391, y: -1.2167093}
       - {x: 1.0771334, y: -1.0544825}
   m_UseDelaunayMesh: 0
+--- !u!114 &1450702122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450702118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045bc09cf8457b14ba09d4d787f6d4c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollideWithOpponent
+  collideDamage: 0
 --- !u!1 &1469290954
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,9 +946,10 @@ GameObject:
   - component: {fileID: 1469290955}
   - component: {fileID: 1469290956}
   - component: {fileID: 1469290957}
-  m_Layer: 0
+  - component: {fileID: 1469290958}
+  m_Layer: 8
   m_Name: attackHitBox
-  m_TagString: Untagged
+  m_TagString: Knight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -896,7 +1029,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469290954}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -915,6 +1048,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1469290958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469290954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045bc09cf8457b14ba09d4d787f6d4c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollideWithOpponent
+  collideDamage: 0
 --- !u!1 &1762278813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,7 +1206,10 @@ GameObject:
   - component: {fileID: 1831868714}
   - component: {fileID: 1831868715}
   - component: {fileID: 1831868716}
-  m_Layer: 0
+  - component: {fileID: 1831868717}
+  - component: {fileID: 1831868718}
+  - component: {fileID: 1831868719}
+  m_Layer: 8
   m_Name: Knight
   m_TagString: Knight
   m_Icon: {fileID: 0}
@@ -1251,10 +1400,11 @@ MonoBehaviour:
   isCrouch: 0
   sideMulti: 1
   isOnAir: 0
-  myInput: {fileID: 0}
   baseKnockback: 1
-  isHurt: 0
   isReachPeak: 0
+  isStrike: 0
+  myInput: {fileID: 0}
+  dashWindPrefab: {fileID: 2098484893905581236, guid: b120a01105a823440bcb1a7884bdb1cf, type: 3}
   baseDashSpd: 0
 --- !u!114 &1831868714
 MonoBehaviour:
@@ -1310,6 +1460,59 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1831868717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831868706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5054702de0442f240bcc16ad9868b6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnightHealth
+  maxHealth: 30
+  currentHealth: 0
+  myAnimControl: {fileID: 0}
+  myMoveControl: {fileID: 0}
+  explosionPrefab: {fileID: 4824854068728509638, guid: 2ea703d796a89aa498d27f038d1d3bf8, type: 3}
+--- !u!114 &1831868718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831868706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045bc09cf8457b14ba09d4d787f6d4c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollideWithOpponent
+  collideDamage: 0
+--- !u!114 &1831868719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831868706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e0c6f01f451174cbc90b97fe28ce82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnightDamageInfo
+  collideWithOther: 3
+  strikeDamage: 5
+  basicAttackDamage: 2.5
+  allScriptCWO:
+  - {fileID: 1831868718}
+  - {fileID: 1469290958}
+  - {fileID: 1450702122}
+  - {fileID: 1205820743}
+  - {fileID: 987111366}
+  blockDamage: 1
+  jumpAttackDamage: 4.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

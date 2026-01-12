@@ -11,10 +11,13 @@ public class MoveController : MonoBehaviour
     public bool isCrouch = false;
     public float sideMulti = 1f;
     public bool isOnAir = false;
-    public InputController myInput;
     public float baseKnockback = 1f;
-    public bool isHurt = false;
+    //public bool isHurt = false;
     public bool isReachPeak = false;
+    public bool isStrike = false;
+
+    public InputController myInput;
+    public GameObject dashWindPrefab;
 
     private Rigidbody2D myRigidBody;
     private const float gravity = 9.81f;
@@ -22,7 +25,6 @@ public class MoveController : MonoBehaviour
     private float angleToJump = 45f;
     //Can Upgrade by using Edge Collider to get Collide event with ground
     private float previousPos = 0;
-    private bool isStrike = false;
 
     //Can update input to KeyControls
     
@@ -109,6 +111,8 @@ public class MoveController : MonoBehaviour
             {
                 isStrike = true;
                 transform.DOMoveX(transform.position.x + sideMulti * baseStrikeSpd, 0.5f).SetDelay(0.3f).OnComplete(() => isStrike = false);
+                Instantiate(dashWindPrefab, transform.position, Quaternion.identity);
+                Destroy(dashWindPrefab, 2f);
             }
         }
     }
@@ -122,11 +126,12 @@ public class MoveController : MonoBehaviour
             }
         }
     }
-    protected void HurtPhysic()
+    public void HurtPhysic()
     {
-        if (isHurt)
+        /*if (isHurt)
         {
             transform.DOMoveX(transform.position.x - sideMulti * baseKnockback, 0.1f).SetDelay(0.5f);
-        }
+        }*/
+        transform.DOMoveX(transform.position.x - sideMulti * baseKnockback, 0.1f).SetDelay(0.5f);
     }
 }
