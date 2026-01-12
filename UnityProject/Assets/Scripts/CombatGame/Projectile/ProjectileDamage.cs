@@ -9,7 +9,8 @@ public class ProjectileDamage : MonoBehaviour
         GameObject opponent = other.gameObject;
         Health opponentHealth = opponent.GetComponent<Health>();
         if (opponentHealth == null) return;
+        if (opponent.tag == gameObject.tag) return;
         opponentHealth.TakeDamage(projectileDamage);
-        Destroy(gameObject, 3f);
+        Destroy(gameObject);
     }
 }

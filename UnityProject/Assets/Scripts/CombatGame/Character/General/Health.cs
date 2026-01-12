@@ -36,8 +36,7 @@ public class Health : MonoBehaviour
         if (damage <= 0) return;
         currentHealth -= damage;
 
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        Destroy(explosionPrefab, 2f);
+        GameObject exploClone = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         
         if (currentHealth <= 0)
         {
@@ -48,6 +47,8 @@ public class Health : MonoBehaviour
             onHealthChange?.Invoke();
             onHurt?.Invoke();
         }
+
+        Destroy(exploClone, 0.5f);
     }
 
     public void OnDead()
