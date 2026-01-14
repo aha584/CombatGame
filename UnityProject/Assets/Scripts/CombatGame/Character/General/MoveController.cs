@@ -132,8 +132,6 @@ public class MoveController : MonoBehaviour
         {
             transform.DOMoveX(transform.position.x - sideMulti * baseKnockback, 0.1f).SetDelay(0.5f);
         }*/
-        Debug.Log("Hurt");
-        Debug.Log("Hurt Side: " + hurtSide);
         transform.DOMoveX(transform.position.x + hurtSide * baseKnockback, 0.1f).SetDelay(0.375f);
     }
 

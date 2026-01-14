@@ -8,8 +8,7 @@ public class CollideWithOpponent : MonoBehaviour
     {
         GameObject opponent = other.gameObject;
         Health opponentHealth = opponent.GetComponent<Health>();
-        if (opponentHealth == null) return;
-        if (opponentHealth.tag == gameObject.tag) return;
+        if (opponentHealth == null || opponentHealth.tag == gameObject.tag) return;
         TakeHurtSide(opponentHealth);
         opponentHealth.TakeDamage(collideDamage);
     }

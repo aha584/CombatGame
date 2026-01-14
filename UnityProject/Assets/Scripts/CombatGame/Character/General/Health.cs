@@ -7,6 +7,11 @@ public class Health : MonoBehaviour
     public float currentHealth;
     public float hurtSide;
 
+    public float timer;
+    public float delayDOT;
+    public float dotToTake;
+    public bool isTakeDOT = false;
+
     public Action onDead;
     public Action onHealthChange;
     public Action onDizzy;
@@ -32,6 +37,22 @@ public class Health : MonoBehaviour
         onWin += myAnimControl.WinAnim;
     }
 
+    private void Update()
+    {
+        if (isTakeDOT)
+        {
+            if(timer >= delayDOT)
+            {
+                TakeDamage(dotToTake);
+                timer = 0;
+            }
+            else
+            {
+                timer += Time.deltaTime;
+            }
+        }
+    }
+
     public void TakeDamage(float damage)
     {
         if (damage <= 0) return;
@@ -55,5 +76,20 @@ public class Health : MonoBehaviour
     public void OnDead()
     {
         Destroy(gameObject, 3f);
+    }
+
+    public void OnTakeDOT(AreaDamage areaScript)
+    {
+        delayDOT = areaScript.delayDOT;
+        timer = delayDOT;
+        dotToTake = areaScript.areaDamage;
+        isTakeDOT = true;
+    }
+    public void ResetDOT()
+    {
+        isTakeDOT = false;
+        timer = 0f;
+        delayDOT = 0f;
+        dotToTake = 0f;
     }
 }
