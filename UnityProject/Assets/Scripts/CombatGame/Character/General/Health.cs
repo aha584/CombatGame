@@ -5,6 +5,7 @@ public class Health : MonoBehaviour
 {
     public float maxHealth;
     public float currentHealth;
+    public float hurtSide;
 
     public Action onDead;
     public Action onHealthChange;
@@ -27,7 +28,7 @@ public class Health : MonoBehaviour
         onDead += myAnimControl.DieAnim;
         onDizzy += myAnimControl.DizzyAnim;
         onHurt += myAnimControl.HurtAnim;
-        onHurt += myMoveControl.HurtPhysic;
+        onHurt += () => myMoveControl.HurtPhysic(hurtSide);
         onWin += myAnimControl.WinAnim;
     }
 

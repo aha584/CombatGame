@@ -126,13 +126,15 @@ public class MoveController : MonoBehaviour
             }
         }
     }
-    public void HurtPhysic()
+    public void HurtPhysic(float hurtSide)
     {
         /*if (isHurt)
         {
             transform.DOMoveX(transform.position.x - sideMulti * baseKnockback, 0.1f).SetDelay(0.5f);
         }*/
-        transform.DOMoveX(transform.position.x - sideMulti * baseKnockback, 0.1f).SetDelay(0.5f);
+        Debug.Log("Hurt");
+        Debug.Log("Hurt Side: " + hurtSide);
+        transform.DOMoveX(transform.position.x + hurtSide * baseKnockback, 0.1f).SetDelay(0.375f);
     }
 
     /*private void OnTriggerStay(Collider other)
