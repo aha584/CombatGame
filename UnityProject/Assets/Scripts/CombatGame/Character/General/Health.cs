@@ -39,9 +39,58 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
+        TakeDOTDamage();
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (damage <= 0) return;
+        currentHealth -= damage;
+
+        if(!isTakeDOT)
+        {
+            InstantiateExlopsion();
+        }
+        /*else
+        {
+            myMoveControl.baseKnockback /= 4;
+        }*/
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            onDead?.Invoke();
+        }
+        else
+        {
+            onHurt?.Invoke();
+        }
+        onHealthChange?.Invoke();
+    }
+
+    public void OnDead()
+    {
+        Destroy(gameObject, 3f);
+    }
+    public void InstantiateExlopsion()
+    {
+        GameObject exploClone = Instantiate(explosionPrefab, transform.position - new Vector3(0.3f * hurtSide, 0, 0), Quaternion.identity);
+        //myMoveControl.baseKnockback *= 4;
+        Destroy(exploClone, 0.5f);
+    }
+
+    public void OnTakeDOT(AreaDamage areaScript)
+    {
+        delayDOT = areaScript.delayDOT;
+        timer = delayDOT;
+        dotToTake = areaScript.areaDamage;
+        isTakeDOT = true;
+    }
+    public void TakeDOTDamage()
+    {
         if (isTakeDOT)
         {
-            if(timer >= delayDOT)
+            if (timer >= delayDOT)
             {
                 TakeDamage(dotToTake);
                 timer = 0;
@@ -51,39 +100,6 @@ public class Health : MonoBehaviour
                 timer += Time.deltaTime;
             }
         }
-    }
-
-    public void TakeDamage(float damage)
-    {
-        if (damage <= 0) return;
-        currentHealth -= damage;
-
-        GameObject exploClone = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        
-        if (currentHealth <= 0)
-        {
-            onDead?.Invoke();
-        }
-        else
-        {
-            onHealthChange?.Invoke();
-            onHurt?.Invoke();
-        }
-
-        Destroy(exploClone, 0.5f);
-    }
-
-    public void OnDead()
-    {
-        Destroy(gameObject, 3f);
-    }
-
-    public void OnTakeDOT(AreaDamage areaScript)
-    {
-        delayDOT = areaScript.delayDOT;
-        timer = delayDOT;
-        dotToTake = areaScript.areaDamage;
-        isTakeDOT = true;
     }
     public void ResetDOT()
     {

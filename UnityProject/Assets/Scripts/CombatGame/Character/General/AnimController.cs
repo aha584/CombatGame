@@ -95,7 +95,7 @@ public class AnimController : MonoBehaviour
     }
     public void DieAnim()//Call when health = 0
     {
-        myAnimator.SetBool("isDie", true);
+        myAnimator.SetTrigger("isDie");
     }
     public void WinAnim()//Call when health = 0
     {
